@@ -34,8 +34,17 @@ Directions:
    (configurable by editing [`index.cgi`](index.cgi)):
    `websocketd --port 8080 ./gw-wrapper.sh` or something similar.
 
+Notes
+-----
+
+* There are a few duplicate templates—e.g. 5¼″ quad-density and high-density formats
+  both having 80 tracks at 96 TPI, thus using the same parameters when invoking
+  Greaseweazle—, but these are to simplify the dropdown menu and to avoid having
+  up to three density and/or BPI specifications on one entry.
+
 To-do
 -----
 
 * Make the code suck less
 * More configurability
+* Include BPI info

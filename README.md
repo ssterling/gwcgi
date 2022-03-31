@@ -8,6 +8,8 @@ in which my Greaseweazle and thus drives are connected to a PC other than
 the one at my desk.
 (To be fair, this was $80 cheaper than a dual 5¼″ drive bay enclosure.)
 
+![Screenshot of gwcgi at work](screenshot.png)
+
 Installation
 ------------
 

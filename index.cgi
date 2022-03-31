@@ -124,7 +124,7 @@ my @templates = (
 		tags => ['5.25', 'ibmpc', 'amiga'],
 		value => '5.25-QD-80-2'},
 	{name => '5¼″ HD-77-2 / high-density, 77 tracks per side, double-sided',
-		cylinders => '0-79', heads => '0-1', steps => '1',
+		cylinders => '0-76', heads => '0-1', steps => '1',
 		formats => oh('PC-98'=>'1232KB'),
 		tags => ['5.25', 'pc98'],
 		value => '5.25-HD-77-2'},

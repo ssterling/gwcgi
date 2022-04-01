@@ -44,9 +44,26 @@ Notes
   Greaseweazle—, but these are to simplify the dropdown menu and to avoid having
   up to three density and/or BPI specifications on one entry.
 
+Known issues
+------------
+
+* Text input is not validated and as such `gw-wrapper.sh` might be vulnerable
+  to something like this:
+  ```sh
+  args=--help; cat /etc/passwd
+  ./gw $args
+  #./gw --help; cat /etc/passwd
+  ```
+  (i.e. arbitrary strings can be passed through the websocket).
+  However, given gwcgi is only intended to be accessed via LAN, this doesn’t
+  seem to be a pressing issue, especially given a user can simply firewall
+  the computer on which gwcgi is run.
+  Input validation, however, *is* on the to-do list below.
+
 To-do
 -----
 
 * Make the code suck less
 * More configurability
 * Include BPI info
+* Validation of input

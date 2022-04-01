@@ -13,7 +13,7 @@ use Sys::Hostname;
 use Tie::IxHash;
 
 # printed below
-my $version = '0.1.0';
+my $version = '0.2.0-dev';
 
 # TODO: infer from address bar (?)
 my $ws_addr = 'ws://192.168.1.123:8080/';
@@ -258,6 +258,9 @@ print '				}
 					if (!document.getElementById('steps-lock').checked) {
 						document.getElementById('steps').value = '';
 					}
+					if (!document.getElementById('paams-lock').checked) {
+						document.getElementById('ts-params').value = '';
+					}
 ";
 foreach my $template (@templates) {
 	print "\t\t\t\t} else if (document.getElementById('template').value == '$template->{value}') {
@@ -269,6 +272,9 @@ foreach my $template (@templates) {
 					}
 					if (!document.getElementById('steps-lock').checked) {
 						document.getElementById('steps').value = '$template->{steps}';
+					}
+					if (!document.getElementById('paams-lock').checked) {
+						document.getElementById('ts-params').value = '$template->{tsparams}';
 					}
 ";
 }
@@ -371,6 +377,12 @@ print "				}
 							}
 							params += 'step=' + valueOf('steps');
 						}
+						if (!fieldIsEmpty('ts-params')) {
+							if (put_colon) {
+								params += ':';
+							}
+							params += valueOf('ts-params');
+						}
 					}
 					params += ' --revs ' + valueOf('revs');
 					if (!fieldIsEmpty('params')) {
@@ -456,15 +468,19 @@ print '
 				<hr>
 				<label for="cylinders">Cylinders:</label>
 				<input type="text" id="cylinders" name="c" placeholder="0 = first cylinder">
-				<input type="checkbox" id="cylinders-lock"><label for="cylinders-lock">Lock</label>
+				<input type="checkbox" id="cylinders-lock"><label for="cylinders-lock">Lock value</label>
 				<br>
 				<label for="heads">Heads:</label>
 				<input type="text" id="heads" name="h" placeholder="generally: 0, 1, or 0-1">
-				<input type="checkbox" id="heads-lock"><label for="heads-lock">Lock</label>
+				<input type="checkbox" id="heads-lock"><label for="heads-lock">Lock value</label>
 				<br>
 				<label for="steps">Steps:</label>
 				<input type="text" id="steps" name="step" placeholder="generally: 1, or 2">
-				<input type="checkbox" id="steps-lock"><label for="steps-lock">Lock</label>
+				<input type="checkbox" id="steps-lock"><label for="steps-lock">Lock value</label>
+				<br>
+				<label for="ts-params">Additional parameters:</label>
+				<input type="text" id="ts-params" name="ts-params" placeholder="colon-seperated">
+				<input type="checkbox" id="params-lock"><label for="">Lock value</label>
 			</fieldset>
 			<fieldset>
 				<legend>Additional parameters</legend>

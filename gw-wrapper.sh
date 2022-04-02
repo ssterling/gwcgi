@@ -9,7 +9,7 @@ filename="$dir/gwcgi_`date +%s`.scp"
 # Get parameters for gw invocation through standard input
 read -r args
 
-./greaseweazle/gw --time read $args --no-clobber $filename 2>&1
+gw --time read $args --no-clobber $filename 2>&1
 
 # Greaseweazle doesn’t change exit codes, so assume success if file is found
 if [ -f "$filename" ]; then

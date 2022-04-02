@@ -16,23 +16,25 @@ Installation
 Dependencies:
 * Git
 * Perl 5
+* [Greaseweazle](//github.com/keirf/greaseweazle)
 * [websocketd](//github.com/joewalnes/websocketd)
 * A webserver, e.g. Apache
 
-Directions:
+If Greaseweazle isn’t installed to your `PATH`, edit `gw-wrapper.sh`
+to reflect its location.
+
+### Directions
+
 1. Clone this repository into somewhere served by your webserver, e.g.
    `/var/www/gwcgi`, and `cd` to that directory.
-2. Clone the [greaseweazle repository](//github.com/keirf/greaseweazle).
-   The `greaseweazle` directory created by Git should be in the same directory
-   as this `README.md`.
-3. Configure your webserver to allow CGI scripts to be executed in whatever
-   directory you cloned this repository.
-4. Set up Greaseweazle per
-   [the wiki](https://github.com/keirf/greaseweazle/wiki/Software-Installation#linux).
-5. Create a directory called `images` in the directory to which you cloned this
-   repository.  Make it writable by the user which will be running `index.cgi`
-   (probably `httpd` or `apache` or something).
-6. Set up websocketd to run `gw-wrapper.sh` on port 8080
+   (From here on, this directory will just be called `/path/to/gwcgi`
+   for sanity.)
+2. Configure your webserver to allow CGI scripts to be executed in
+   `/path/to/gwcgi`.
+3. Create a directory called `images`, i.e. `/path/to/gwcgi/images`.
+   Make it writable by the user which will be running `index.cgi`
+   (probably `www` or `apache` or something).
+4. Set up websocketd to run `gw-wrapper.sh` on port 8080
    (configurable by editing [`index.cgi`](index.cgi)):
    `websocketd --port 8080 ./gw-wrapper.sh` or something similar.
 

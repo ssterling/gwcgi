@@ -242,40 +242,34 @@ print '				} else {
 foreach my $template (@templates) {
 	print "\t\t\t\t\tdocument.getElementById('$template->{value}').innerHTML = '$template->{name}'\n";
 }
-print '				}
+print "				}
+			}
+
+			function setValuesWhereNotLocked(cylinders, heads, steps, params)
+			{
+				if (!document.getElementById('cylinders-lock').checked) {
+					document.getElementById('cylinders').value = cylinders;
+				}
+				if (!document.getElementById('heads-lock').checked) {
+					document.getElementById('heads').value = heads;
+				}
+				if (!document.getElementById('steps-lock').checked) {
+					document.getElementById('steps').value = steps;
+				}
+				if (!document.getElementById('params-lock').checked) {
+					document.getElementById('ts-params').value = params;
+				}
 			}
 
 			/* procedurally generated */
 			function on_template_select()
-			{' . "
+			{
 				if (document.getElementById('template').selectedIndex == 0) {
-					if (!document.getElementById('cylinders-lock').checked) {
-						document.getElementById('cylinders').value = '';
-					}
-					if (!document.getElementById('heads-lock').checked) {
-						document.getElementById('heads').value = '';
-					}
-					if (!document.getElementById('steps-lock').checked) {
-						document.getElementById('steps').value = '';
-					}
-					if (!document.getElementById('paams-lock').checked) {
-						document.getElementById('ts-params').value = '';
-					}
+					setValuesWhereNotLocked('', '', '', '');
 ";
 foreach my $template (@templates) {
 	print "\t\t\t\t} else if (document.getElementById('template').value == '$template->{value}') {
-					if (!document.getElementById('cylinders-lock').checked) {
-						document.getElementById('cylinders').value = '$template->{cylinders}';
-					}
-					if (!document.getElementById('heads-lock').checked) {
-						document.getElementById('heads').value = '$template->{heads}';
-					}
-					if (!document.getElementById('steps-lock').checked) {
-						document.getElementById('steps').value = '$template->{steps}';
-					}
-					if (!document.getElementById('paams-lock').checked) {
-						document.getElementById('ts-params').value = '$template->{tsparams}';
-					}
+					setValuesWhereNotLocked('$template->{cylinders}', '$template->{heads}', '$template->{steps}', '$template->{tsparams}');
 ";
 }
 print '				}

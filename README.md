@@ -34,8 +34,10 @@ to reflect its location.
 3. Create a directory called `images`, i.e. `/path/to/gwcgi/images`.
    Make it writable by the user which will be running `index.cgi`
    (probably `www` or `apache` or something).
-4. Set up websocketd to run `gw-wrapper.sh` on port 8080
-   (configurable by editing [`index.cgi`](index.cgi)):
+4. Change the value of `$ws_addr` in `index.cgi` to reflect your
+   webserver’s address.
+   The port you choose can be arbitrary, but make sure it isn’t firewalled.
+5. Set up websocketd to run `gw-wrapper.sh` on the port entered above:
    `websocketd --port 8080 ./gw-wrapper.sh` or something similar.
 
 Notes

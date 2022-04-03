@@ -240,7 +240,7 @@ foreach my $template (@templates) {
 print '				} else {
 ';
 foreach my $template (@templates) {
-	print "\t\t\t\t\tdocument.getElementById('$template->{value}').innerHTML = '$template->{name}'\n";
+	print "\t\t\t\t\tdocument.getElementById('$template->{value}').innerHTML = '$template->{name}';\n";
 }
 print "				}
 			}

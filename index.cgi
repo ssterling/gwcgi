@@ -397,6 +397,9 @@ print "				}
 					if (event.data.startsWith('[DOWNLOAD]')) {
 						var e = document.createElement('a');
 						e.setAttribute('href', event.data.substring(10));
+						if (valueOf('filename') != '') {
+							e.setAttribute('download', valueOf('filename') + '.scp');
+						}
 						document.body.appendChild(e);
 						e.click();
 						document.body.removeChild(e);
@@ -483,6 +486,9 @@ print '
 				<br>
 				<label for="params">Additional parameters:</label>
 				<input type="text" id="params" name="params">
+				<br>
+				<label for="filename">Output filename:</label>
+				<input type="text" id="filename" name="filename" maxlength="128" placeholder="leave blank for default">.scp
 			</fieldset>
 			<br>
 			<button onclick="startCommand();">Read disk</button>

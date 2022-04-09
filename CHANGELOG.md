@@ -4,6 +4,7 @@ Changelog
 0.2.0
 -----
 
+* Moved websocket and device configuration to a separate file
 * Added field for additional trackset parameters
 * Added field for output filename
 * Changed `gw-wrapper.sh` to assume `gw` is in `PATH`

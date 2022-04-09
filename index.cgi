@@ -11,15 +11,19 @@ use open ":std", ":encoding(UTF-8)";
 
 use Sys::Hostname;
 use Tie::IxHash;
+use Config::Tiny;
 
 # printed below
 my $version = '0.2.0-dev';
 
-# TODO: infer from address bar (?)
-my $ws_addr = 'ws://192.168.1.123:8080/';
-
-# TODO: make configurable
-my $default_device = '/dev/greaseweazle';
+# Grab configuration file
+my $config = Config::Tiny->new;
+if (-e './config.ini') {
+	$config = Config::Tiny->read('./config.ini');
+} else {
+	# TODO: log warning that config file does not exist
+	$config = Config::Tiny->read('./config.ini.sample');
+}
 
 # Shorthand for hash that gets parsed in insertion order
 sub oh(%)
@@ -343,7 +347,7 @@ print "				}
 			function startCommand()
 			{
 				changeStatus('Attempting connection…');
-				sock = new WebSocket('$ws_addr');
+				sock = new WebSocket('ws://$config->{_}->{websocket_addr}/');
 
 				sock.onopen = function() { 
 					changeStatus('Connected');
@@ -419,7 +423,7 @@ print "				}
 			<fieldset>
 				<legend>Device</legend>
 				<label for="device">Device:</label>
-				<input type="text" id="device" name="device" value="' . $default_device . '" disabled>
+				<input type="text" id="device" name="device" value="' . $config->{_}->{device} . '" disabled>
 				<br>
 				Drive:
 				<input type="radio" id="drive_a" name="drive" value="A" checked><label for="drive_a">A</label>

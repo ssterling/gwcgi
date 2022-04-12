@@ -1,7 +1,7 @@
 Greaseweazle CGI Interface
 ==========================
 
-Web interface to Greaseweazle host tools.
+Web interface to [Greaseweazle host tools][gw-host-tools-wiki].
 
 The only sensible use case I can think of is something like mine,
 in which my Greaseweazle and thus drives are connected to a PC other than
@@ -14,11 +14,10 @@ Installation
 ------------
 
 Dependencies:
-* Git
+* [Greaseweazle host tools][gw-host-tools-dl]
 * Perl 5
-* Config::Tiny module
-* [Greaseweazle](//github.com/keirf/greaseweazle)
-* [websocketd](//github.com/joewalnes/websocketd)
+* [Config::Tiny][config-tiny]
+* [websocketd][websocketd]
 * A webserver, e.g. Apache
 
 If Greaseweazle isn’t installed to your `PATH`, edit `gw-wrapper.sh`
@@ -71,3 +70,8 @@ To-do
 * More configurability
 * Include BPI info
 * Validation of input
+
+[gw-host-tools-wiki]: https://github.com/keirf/greaseweazle/wiki
+[gw-host-tools-dl]: https://github.com/keirf/greaseweazle/wiki/Download-Host-Tools
+[config-tiny]: https://metacpan.org/pod/Config::Tiny
+[websocketd]: https://github.com/joewalnes/websocketd

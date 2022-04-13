@@ -36,8 +36,6 @@ to reflect its location.
    (probably `www` or `apache` or something).
 4. Copy `config.ini.sample` to `config.ini`, and edit the values
    for the websocket address and Greaseweazle device accordingly.
-5. Set up websocketd to run `gw-wrapper.sh` on the port entered above:
-   `websocketd --port 8080 ./gw-wrapper.sh` or something similar.
 
 Notes
 -----

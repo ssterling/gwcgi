@@ -1,2 +1,5 @@
-websocket_addr=localhost:8080
 device=/dev/greaseweazle
+
+[websocket]
+address=localhost
+port=8080

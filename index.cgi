@@ -347,7 +347,7 @@ print "				}
 			function startCommand()
 			{
 				changeStatus('Attempting connection…');
-				sock = new WebSocket('ws://$config->{_}->{websocket_addr}/');
+				sock = new WebSocket('ws://$config->{websocket}->{address}:$config->{websocket}->{port}/');
 
 				sock.onopen = function() { 
 					changeStatus('Connected');
@@ -510,5 +510,41 @@ print '
 		</script>
 	</body>
 </html>';
+
+#
+# LE FORK
+# Basically: invoke websocketd if not already up
+#
+
+my $pidf = fork;
+if ($pidf != 0) {
+	# This is the parent, and the page is output, so exit
+	exit 0;
+}
+
+my $pidfile_loc = '/tmp/gwcgi-websocketd.pid';
+if (not -e $pidfile_loc) {
+	# We ended up creating the file, so just write current PID
+	open FP, '>', $pidfile_loc;
+	print FP $$;
+	close FP;
+} else {
+	open FP, '<', $pidfile_loc or die $!;
+	my $pid = <FP>;
+	close FP;
+	my $killstat = kill(0, $pid);
+	if ($$ eq $pid or $killstat ne 0) {
+		# Already running; quit
+		exit 0;
+	} else {
+		truncate $pidfile_loc, 0 or die $!;  # remove contents
+		open FP, '>', $pidfile_loc;
+		print FP $$;
+		close FP;
+	}
+}
+
+system("websocketd --loglevel=fatal --port $config->{websocket}->{port} ./gw-wrapper.sh");
+# TODO: some way to kill the daemon later on
 
 1;

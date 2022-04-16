@@ -14,7 +14,7 @@ use Tie::IxHash;
 use Config::Tiny;
 
 # printed below
-my $version = '0.2.0-dev';
+my $version = '0.2.0';
 
 # Grab configuration file
 my $config = Config::Tiny->new;

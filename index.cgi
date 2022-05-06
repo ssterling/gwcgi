@@ -14,7 +14,7 @@ use Tie::IxHash;
 use Config::Tiny;
 
 # printed below
-my $version = '0.2.0';
+my $version = '0.3.0-dev';
 
 # Grab configuration file
 my $config = Config::Tiny->new;
@@ -222,66 +222,76 @@ print 'Content-Type: text/html; charset=UTF8
 				width: 500px;
 			}
 		</style>
-		<script type="text/javascript">
+		<script type="text/javascript"> ' . "
 			/* procedurally generated */
-			function on_append_change()
-			{' . "
-				if (document.getElementById('template-show-format').checked) {
+			var templates = [
 ";
+# Ersatz serialisation-deserialisation to JavaScript, idk
 foreach my $template (@templates) {
-	my $inner = $template->{name};
+	my $formats;
 	my @keys = keys %{$template->{formats}};
 	if (keys %{$template->{formats}}) {
-		$inner .= ' [';
+		$formats .= '[';
 		for (my $i = 0; $i <= $#keys; $i++) {
-			$inner .= ', ' unless $i == 0;
-			$inner .= "$keys[$i] $template->{formats}{$keys[$i]}";
+			$formats .= ', ' unless $i == 0;
+			$formats .= "$keys[$i] $template->{formats}{$keys[$i]}";
 		}
-		$inner .= ']';
+		$formats .= ']';
 	}
-	print "\t\t\t\t\tdocument.getElementById('$template->{value}').innerHTML = '$inner';\n";
+	my $tags;
+	for (my $i = 0; $i <= $#keys; $i++) {
+		$tags .= ', ' unless $i == 0;
+		$tags .= "'$template->{tags}[$i]'";
+	}
+	print "\t\t\t\t\t['$template->{value}', '$template->{name}', '$formats', ['$template->{cylinders}', '$template->{heads}', '$template->{steps}', '$template->{tsparams}'], [$tags]],\n";
 }
-print '				} else {
-';
-foreach my $template (@templates) {
-	print "\t\t\t\t\tdocument.getElementById('$template->{value}').innerHTML = '$template->{name}';\n";
-}
-print "				}
+print "			];
+
+			function on_append_change()
+			{
+				if (document.getElementById('template-show-format').checked) {
+					for (var i = 0; i < templates.length; i++) {
+						document.getElementById(templates[i][0]).innerHTML = templates[i][1] + \' \' + templates[i][2];
+					}
+				} else {
+					for (var i = 0; i < templates.length; i++) {
+						document.getElementById(templates[i][0]).innerHTML = templates[i][1];
+					}
+				}
 			}
 
-			function setValuesWhereNotLocked(cylinders, heads, steps, params)
+			function setValuesWhereNotLocked(set)
 			{
 				if (!document.getElementById('cylinders-lock').checked) {
-					document.getElementById('cylinders').value = cylinders;
+					document.getElementById('cylinders').value = set[0];
 				}
 				if (!document.getElementById('heads-lock').checked) {
-					document.getElementById('heads').value = heads;
+					document.getElementById('heads').value = set[1];
 				}
 				if (!document.getElementById('steps-lock').checked) {
-					document.getElementById('steps').value = steps;
+					document.getElementById('steps').value = set[2];
 				}
 				if (!document.getElementById('params-lock').checked) {
-					document.getElementById('ts-params').value = params;
+					document.getElementById('ts-params').value = set[3];
 				}
 			}
 
-			/* procedurally generated */
 			function on_template_select()
 			{
 				if (document.getElementById('template').selectedIndex == 0) {
-					setValuesWhereNotLocked('', '', '', '');
-";
-foreach my $template (@templates) {
-	print "\t\t\t\t} else if (document.getElementById('template').value == '$template->{value}') {
-					setValuesWhereNotLocked('$template->{cylinders}', '$template->{heads}', '$template->{steps}', '$template->{tsparams}');
-";
-}
-print '				}
+					setValuesWhereNotLocked(['', '', '', '']);
+				} else {
+					for (var i = 0; i < templates.length; i++) {
+						if (document.getElementById('template').value == templates[i][0]) {
+							setValuesWhereNotLocked(templates[i][3]);
+						}
+					}
+				}
 			}
 
 			/* procedurally generated */
 			function on_filter_select()
-			{' . "
+			{
 				if (document.getElementById('template-filter').selectedIndex == 0) {
 					var optgroups = document.getElementById('template').children;
 					for (var i = 0; i < optgroups.length; i++) {
@@ -290,24 +300,17 @@ print '				}
 							options[j].hidden = false;
 						}
 					}
-";
-foreach my $tag (@valid_tags) {
-	print "\t\t\t\t} else if (document.getElementById('template-filter').value == '$tag->[0]') {
-					var optgroups = document.getElementById('template').children;
-					for (var i = 0; i < optgroups.length; i++) {
-						var options = optgroups[i].children;
-						for (var j = 0; j < options.length; j++) {
-							options[j].hidden = true;
+				} else {
+					var filter = document.getElementById('template-filter').value;
+					for (var i = 0; i < templates.length; i++) {
+						var option = document.getElementById(templates[i][0]);
+						if (templates[i][4].includes(filter)) {
+							option.hidden = false;
+						} else {
+							option.hidden = true;
 						}
 					}
-";
-	foreach my $template (@templates) {
-		if (grep /^$tag->[0]$/, @{$template->{tags}}) {
-			print "\t\t\t\t\tdocument.getElementById('$template->{value}').hidden = false;\n";
-		}
-	}
-}
-print "				}
+				}
 			}
 
 			function log(msg)

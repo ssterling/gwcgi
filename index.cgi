@@ -426,14 +426,14 @@ print "			];
 			<fieldset>
 				<legend>Device</legend>
 				<label for="device">Device:</label>
-				<input type="text" id="device" name="device" value="' . $config->{_}->{device} . '" disabled>
+				<input type="text" id="device" value="' . $config->{_}->{device} . '" disabled>
 				<br>
 				Drive:
-				<input type="radio" id="drive_a" name="drive" value="A" checked><label for="drive_a">A</label>
-				<input type="radio" id="drive_b" name="drive" value="B"><label for="drive_b">B</label>
-				<input type="radio" id="drive_0" name="drive" value="0"><label for="drive_0">0</label>
-				<input type="radio" id="drive_1" name="drive" value="1"><label for="drive_1">1</label>
-				<input type="radio" id="drive_2" name="drive" value="2"><label for="drive_2">2</label><!--
+				<input type="radio" id="drive_a" value="A" checked><label for="drive_a">A</label>
+				<input type="radio" id="drive_b" value="B"><label for="drive_b">B</label>
+				<input type="radio" id="drive_0" value="0"><label for="drive_0">0</label>
+				<input type="radio" id="drive_1" value="1"><label for="drive_1">1</label>
+				<input type="radio" id="drive_2" value="2"><label for="drive_2">2</label><!--
 				<br>
 				<label for="flippy">Flippy-modded:</label><input type="checkbox" id="flippy">-->
 			</fieldset>
@@ -441,7 +441,7 @@ print "			];
 				<noscript><p style="font-weight:bold;">Template functionality will not work without JavaScript</p></noscript>
 				<legend>Trackset</legend>
 				<label for="template">Template:</label>
-				<select id="template" name="template" onChange="on_template_select()">
+				<select id="template" onChange="on_template_select()">
 					<option value="0" selected>— None —</option>
 					<optgroup label="8″ (8-inch)">
 ';
@@ -461,7 +461,7 @@ print '					</optgroup>
 				<label for="template-show-format">Append filesystem sizes to template name</label>
 				<br>
 				<label for="template-filter">Filter templates by tag:</label>
-				<select id="template-filter" name="template-filter" onChange="on_filter_select()">
+				<select id="template-filter" onChange="on_filter_select()">
 					<option value="0" selected>— None —</option>
 ';
 foreach my $tag (@valid_tags) {
@@ -471,31 +471,31 @@ print '
 				</select>
 				<hr>
 				<label for="cylinders">Cylinders:</label>
-				<input type="text" id="cylinders" name="c" placeholder="0 = first cylinder">
+				<input type="text" id="cylinders" placeholder="0 = first cylinder">
 				<input type="checkbox" id="cylinders-lock"><label for="cylinders-lock">Lock value</label>
 				<br>
 				<label for="heads">Heads:</label>
-				<input type="text" id="heads" name="h" placeholder="generally: 0, 1, or 0-1">
+				<input type="text" id="heads" placeholder="generally: 0, 1, or 0-1">
 				<input type="checkbox" id="heads-lock"><label for="heads-lock">Lock value</label>
 				<br>
 				<label for="steps">Steps:</label>
-				<input type="text" id="steps" name="step" placeholder="generally: 1, or 2">
+				<input type="text" id="steps" placeholder="generally: 1, or 2">
 				<input type="checkbox" id="steps-lock"><label for="steps-lock">Lock value</label>
 				<br>
 				<label for="ts-params">Additional parameters:</label>
-				<input type="text" id="ts-params" name="ts-params" placeholder="colon-seperated">
+				<input type="text" id="ts-params" placeholder="colon-seperated">
 				<input type="checkbox" id="params-lock"><label for="">Lock value</label>
 			</fieldset>
 			<fieldset>
 				<legend>Additional parameters</legend>
 				<label for="revs">Revolutions per track:</label>
-				<input type="number" id="revs" name="revs" min="1" value="1">
+				<input type="number" id="revs" min="1" value="1">
 				<br>
 				<label for="params">Additional parameters:</label>
-				<input type="text" id="params" name="params">
+				<input type="text" id="params">
 				<br>
 				<label for="filename">Output filename:</label>
-				<input type="text" id="filename" name="filename" maxlength="128" placeholder="leave blank for default">.scp
+				<input type="text" id="filename" maxlength="128" placeholder="leave blank for default">.scp
 			</fieldset>
 			<br>
 			<button onclick="startCommand();">Read disk</button>

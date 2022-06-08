@@ -429,11 +429,11 @@ print "			];
 				<input type="text" id="device" value="' . $config->{_}->{device} . '" disabled>
 				<br>
 				Drive:
-				<input type="radio" id="drive_a" value="A" checked><label for="drive_a">A</label>
-				<input type="radio" id="drive_b" value="B"><label for="drive_b">B</label>
-				<input type="radio" id="drive_0" value="0"><label for="drive_0">0</label>
-				<input type="radio" id="drive_1" value="1"><label for="drive_1">1</label>
-				<input type="radio" id="drive_2" value="2"><label for="drive_2">2</label><!--
+				<input type="radio" id="drive_a" name="drive" value="A" checked><label for="drive_a">A</label>
+				<input type="radio" id="drive_b" name="drive" value="B"><label for="drive_b">B</label>
+				<input type="radio" id="drive_0" name="drive" value="0"><label for="drive_0">0</label>
+				<input type="radio" id="drive_1" name="drive" value="1"><label for="drive_1">1</label>
+				<input type="radio" id="drive_2" name="drive" value="2"><label for="drive_2">2</label><!--
 				<br>
 				<label for="flippy">Flippy-modded:</label><input type="checkbox" id="flippy">-->
 			</fieldset>
